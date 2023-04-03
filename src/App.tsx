@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
-function App() {
+const App = (): JSX.Element => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    const formData = new FormData();
+
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+
+      fetch("http://0.0.0.0:8080/upload", {
+        method: "POST",
+        body: formData,
+        mode: 'cors'
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+// https://isentropic-snow-382317.an.r.appspot.com/upload
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="file" onChange={handleFileInput} />
+      <button onClick={handleUpload}>Upload</button>
     </div>
   );
-}
+};
 
 export default App;
