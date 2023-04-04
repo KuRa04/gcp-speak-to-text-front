@@ -29,6 +29,7 @@ const App = (): JSX.Element => {
     }
   };
 // https://isentropic-snow-382317.an.r.appspot.com/upload
+// http://0.0.0.0:8080/upload
   return (
     <div>
       <input type="file" onChange={handleFileInput} />
