@@ -15,7 +15,7 @@ const App = (): JSX.Element => {
     if (selectedFile) {
       formData.append("file", selectedFile);
 
-      fetch("http://0.0.0.0:8080/upload", {
+      fetch("https://isentropic-snow-382317.an.r.appspot.com/upload", {
         method: "POST",
         body: formData,
         mode: 'cors'
